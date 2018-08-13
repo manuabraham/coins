@@ -79,7 +79,19 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-//
+         $request->validate([
+          'coinname' => 'required',
+          'coinprice'=> 'required|numeric',
+        ]); 
+        $form = Form::find($id);
+        $form->coinname=$request->get('coinname');
+        $form->coinprice=$request->get('coinprice');
+        $checkbox = implode(",", $request->get('option'));
+        $form->dropdown=$request->get('dropdown');
+        $form->radio=$request->get('radio');
+        $form->checkbox = $checkbox; 
+        $form->save();
+        return redirect('forms');
     }
 
     /**
