@@ -79,17 +79,17 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id) {
-         $request->validate([
-          'coinname' => 'required',
-          'coinprice'=> 'required|numeric',
-        ]); 
+        $request->validate([
+            'coinname' => 'required',
+            'coinprice' => 'required|numeric',
+        ]);
         $form = Form::find($id);
-        $form->coinname=$request->get('coinname');
-        $form->coinprice=$request->get('coinprice');
+        $form->coinname = $request->get('coinname');
+        $form->coinprice = $request->get('coinprice');
         $checkbox = implode(",", $request->get('option'));
-        $form->dropdown=$request->get('dropdown');
-        $form->radio=$request->get('radio');
-        $form->checkbox = $checkbox; 
+        $form->dropdown = $request->get('dropdown');
+        $form->radio = $request->get('radio');
+        $form->checkbox = $checkbox;
         $form->save();
         return redirect('forms');
     }
@@ -101,7 +101,9 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-//
+        $form = form::find($id);
+        $form->delete();
+        return redirect('forms')->with('success', 'Coin has been  deleted');
     }
 
 }
