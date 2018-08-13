@@ -67,7 +67,8 @@ class FormController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-//
+        $form = Form::find($id);
+        return view('forms.edit', compact('form', 'id'));
     }
 
     /**
